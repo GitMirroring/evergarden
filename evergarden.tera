@@ -1,0 +1,477 @@
+---
+whiskers:
+  version: "^2.9.0"
+  matrix:
+    - flavor: ["fall", "winter", "spring", "summer"]
+  filename: "evergarden-{{ flavor }}.el"
+---
+{% set red = flavor.colors.red %}
+{% set orange = flavor.colors.orange %}
+{% set yellow = flavor.colors.yellow %}
+{% set lime = flavor.colors.lime %}
+{% set green = flavor.colors.green %}
+{% set aqua = flavor.colors.aqua %}
+{% set skye = flavor.colors.skye %}
+{% set snow = flavor.colors.snow %}
+{% set blue = flavor.colors.blue %}
+{% set purple = flavor.colors.purple %}
+{% set pink = flavor.colors.pink %}
+{% set cherry = flavor.colors.cherry %}
+{% set text = flavor.colors.text %}
+{% set subtext1 = flavor.colors.subtext1 %}
+{% set subtext0 = flavor.colors.subtext0 %}
+{% set overlay2 = flavor.colors.overlay2 %}
+{% set overlay1 = flavor.colors.overlay1 %}
+{% set overlay0 = flavor.colors.overlay0 %}
+{% set surface2 = flavor.colors.surface2 %}
+{% set surface1 = flavor.colors.surface1 %}
+{% set surface0 = flavor.colors.surface0 %}
+{% set base = flavor.colors.base %}
+{% set mantle = flavor.colors.mantle %}
+{% set crust = flavor.colors.crust %}
+
+;;; evergarden-theme.el --- Cozy evergarden dark theme -*- lexical-binding: t; -*-
+
+;; Author: expansion of the original evergarden theme by @koi.rip
+;; Version: 0.1.0
+;; Package-Requires: ((emacs "28.1") (modus-themes "5.0.0") (ef-themes "2.0.0"))
+;; Keywords: faces, theme
+
+;;; Commentary:
+;; The evergarden theme (https://evergarden.moe), ported to Emacs and based on ef/modus themes
+
+;;; Code:
+
+(require 'modus-themes)
+(require 'ef-themes)
+
+(defgroup evergarden-theme nil
+  "Cozy evergarden dark theme built on Modus and Ef."
+  :group 'faces
+  :group 'ef-themes
+  :prefix "evergarden-")
+
+(defconst evergarden-theme-description
+  "Cozy evergarden dark theme with forest-green accents."
+  "Documentation string for the `evergarden' theme.")
+
+(defconst evergarden-theme-name 'evergarden
+  "Theme symbol for `evergarden'.")
+
+(defconst evergarden-theme-family 'evergarden-theme
+  "Theme family symbol for `evergarden'.")
+
+(defconst evergarden-theme-background-mode 'dark
+  "Background mode for `evergarden'.")
+
+(defconst evergarden-palette-partial
+  '(
+    (cursor "{{ cherry.hex }}")
+    (bg-main "{{ base.hex }}")
+    (bg-dim "{{ surface0.hex }}")
+    (bg-alt "{{ surface1.hex }}")
+    (fg-main "{{ text.hex }}")
+    (fg-dim "{{ subtext1.hex }}")
+    (fg-alt "{{ subtext0.hex }}")
+    (bg-active "{{ surface2.hex }}")
+    (bg-inactive "{{ surface0.hex }}")
+    (border "{{ overlay0.hex }}")
+
+    (bg-hl "{{ surface2.hex }}")
+    (bg-prose-block "#2A3237")
+    (red "{{ red.hex }}")
+    (orange "{{ orange.hex }}")
+    (yellow "{{ yellow.hex }}")
+    (lime "{{ lime.hex }}")
+    (green "{{ green.hex }}")
+    (aqua "{{ aqua.hex }}")
+    (skye "{{ skye.hex }}")
+    (snow "{{ snow.hex }}")
+    (blue "{{ blue.hex }}")
+    (purple "{{ purple.hex }}")
+    (pink "{{ pink.hex }}")
+    (cherry "{{ cherry.hex }}")
+    (subtext1 "{{ subtext1.hex }}")
+    (subtext0 "{{ subtext0.hex }}")
+    (overlay2 "{{ overlay2.hex }}")
+    (overlay1 "{{ overlay1.hex }}")
+    (overlay0 "{{ overlay0.hex }}")
+    (surface2 "{{ surface2.hex }}")
+    (surface1 "{{ surface1.hex }}")
+    (surface0 "{{ surface0.hex }}")
+    (mantle "{{ mantle.hex }}")
+    (crust "{{ crust.hex }}")
+
+    (red-warmer "#F6798F")
+    (red-cooler "#F68F74")
+    (red-faint "#D07173")
+
+    (green-warmer "#DBE6AF")
+    (green-cooler "#BBE2AF")
+    (green-faint "#B2C49F")
+
+    (yellow-warmer "#F6C497")
+    (yellow-cooler "#F2DC96")
+    (yellow-faint "#D4B586")
+
+    (blue-warmer "#AFD9E6")
+    (blue-cooler "#AEB9EC")
+    (blue-faint "#9AAFCD")
+
+    (magenta "#D2BDF3")
+    (magenta-warmer "#F3C0E5")
+    (magenta-cooler "#DCB9F2")
+    (magenta-faint "#B6A0D8")
+
+    (cyan "#B3E3CA")
+    (cyan-warmer "#B3E3BF")
+    (cyan-cooler "#B3E6DB")
+    (cyan-faint "#9DC1AE")
+
+    (bg-red-intense "#6D2C2E")
+    (bg-green-intense "#4D6D2C")
+    (bg-yellow-intense "#6D532C")
+    (bg-blue-intense "#2C476D")
+    (bg-magenta-intense "#452C6D")
+    (bg-cyan-intense "#2C6D4B")
+
+    (bg-red-subtle "#482A2B")
+    (bg-green-subtle "#39482A")
+    (bg-yellow-subtle "#483C2A")
+    (bg-blue-subtle "#2A3748")
+    (bg-magenta-subtle "#362A48")
+    (bg-cyan-subtle "#2A4839")
+
+    (bg-red-nuanced "#372828")
+    (bg-green-nuanced "#2F3728")
+    (bg-yellow-nuanced "#373128")
+    (bg-blue-nuanced "#282E37")
+    (bg-magenta-nuanced "#2D2837")
+    (bg-cyan-nuanced "#28372F")
+
+    (bg-graph-red-0 "#A63033")
+    (bg-graph-red-1 "#6B2E2F")
+    (bg-graph-green-0 "#6BA630")
+    (bg-graph-green-1 "#4D6B2E")
+    (bg-graph-yellow-0 "#A67730")
+    (bg-graph-yellow-1 "#6B532E")
+    (bg-graph-blue-0 "#3060A6")
+    (bg-graph-blue-1 "#2E476B")
+    (bg-graph-magenta-0 "#5E30A6")
+    (bg-graph-magenta-1 "#462E6B")
+    (bg-graph-cyan-0 "#30A669")
+    (bg-graph-cyan-1 "#2E6B4B")
+    (bg-added "#4D6D2C")
+    (bg-added-faint "#39482A")
+    (bg-added-refine "#577B32")
+    (bg-added-fringe "#4D6B2E")
+    (fg-added "#CBE3B3")
+    (fg-added-intense "#8BCC4A")
+    (bg-changed "#6D532C")
+    (bg-changed-faint "#483C2A")
+    (bg-changed-refine "#7B5E32")
+    (bg-changed-fringe "#6B532E")
+    (fg-changed "#F2DC96")
+    (fg-changed-intense "#F69D18")
+    (bg-removed "#6D2C2E")
+    (bg-removed-faint "#482A2B")
+    (bg-removed-refine "#7B3234")
+    (bg-removed-fringe "#6B2E2F")
+    (fg-removed "#F57F82")
+    (fg-removed-intense "#F41A20")
+    (bg-diff-context "#4A585C")
+    (bg-mode-line-active "#455356")
+    (fg-mode-line-active "#F8F9E8")
+    (bg-mode-line-inactive "#2B3337")
+    (fg-mode-line-inactive "#ADC9BC")
+    (border-mode-line-active "#CBE3B3")
+    (border-mode-line-inactive "#58686D")
+    (bg-completion "#374145")
+    (bg-hover "#4A585C")
+    (bg-hover-secondary "#2B3646")
+    (bg-hl-line "#4A585C")
+    (bg-paren-match "#604D2E")
+    (bg-err "#6D2C2E")
+    (bg-warning "#6D532C")
+    (bg-info "#2C6D4B")
+    (bg-region "#4A585C"))
+  "Base palette entries for `evergarden'.")
+
+(defconst evergarden-palette-mappings-partial
+  '(
+    (err red)
+    (warning orange)
+    (info cyan)
+    (underline-err red)
+    (underline-warning orange)
+    (underline-note cyan)
+    (modeline-err red)
+    (modeline-warning yellow)
+    (modeline-info cyan)
+    (bg-prominent-warning bg-warning)
+    (fg-prominent-warning fg-main)
+    (bg-prominent-note bg-info)
+    (fg-prominent-note fg-main)
+    (fg-link blue)
+    (fg-link-visited magenta)
+    (fg-link-symbolic cyan)
+    (bg-link unspecified)
+    (bg-link-symbolic unspecified)
+    (bg-link-visited unspecified)
+    (underline-link blue)
+    (underline-link-visited magenta)
+    (underline-link-symbolic cyan)
+    (name cyan)
+    (keybind green)
+    (identifier fg-main)
+    (fg-prompt green)
+    (bg-prompt unspecified)
+    (builtin cyan-cooler)
+    (comment fg-dim)
+    (constant magenta-cooler)
+    (fnname cyan)
+    (fnname-call cyan-warmer)
+    (keyword red)
+    (preprocessor green)
+    (property fg-main)
+    (docstring fg-dim)
+    (docmarkup green-cooler)
+    (string green-warmer)
+    (type yellow)
+    (variable blue)
+    (variable-use blue)
+    (rx-backslash orange)
+    (rx-construct magenta)
+    (accent-0 green)
+    (accent-1 cyan)
+    (accent-2 magenta-warmer)
+    (accent-3 orange)
+    (fg-button-active fg-main)
+    (fg-button-inactive fg-dim)
+    (bg-button-active bg-main)
+    (bg-button-inactive bg-dim)
+    (fg-region fg-main)
+    (bg-mark-delete bg-red-subtle)
+    (fg-mark-delete red)
+    (bg-mark-select bg-green-subtle)
+    (fg-mark-select green)
+    (bg-mark-other bg-cyan-subtle)
+    (fg-mark-other cyan)
+    (date-common cyan)
+    (date-deadline red)
+    (date-deadline-subtle red-faint)
+    (date-event fg-alt)
+    (date-holiday red-warmer)
+    (date-holiday-other magenta-warmer)
+    (date-now fg-main)
+    (date-range fg-alt)
+    (date-scheduled green)
+    (date-scheduled-subtle green-faint)
+    (date-weekday blue)
+    (date-weekend red-faint)
+    (fg-prose-code green-cooler)
+    (prose-done green)
+    (fg-prose-macro green)
+    (prose-metadata fg-dim)
+    (prose-metadata-value fg-alt)
+    (prose-table fg-alt)
+    (prose-table-formula cyan)
+    (prose-tag yellow-faint)
+    (prose-todo red)
+    (fg-prose-verbatim magenta-warmer)
+    (mail-cite-0 green)
+    (mail-cite-1 cyan)
+    (mail-cite-2 magenta-warmer)
+    (mail-cite-3 red-warmer)
+    (mail-part cyan)
+    (mail-recipient blue)
+    (mail-subject green)
+    (mail-other fg-alt)
+    (bg-search-static bg-cyan-subtle)
+    (bg-search-current bg-green-intense)
+    (bg-search-lazy bg-green-subtle)
+    (bg-search-replace bg-red-intense)
+    (bg-search-rx-group-0 bg-green-intense)
+    (bg-search-rx-group-1 bg-magenta-intense)
+    (bg-search-rx-group-2 bg-cyan-intense)
+    (bg-search-rx-group-3 bg-red-intense)
+    (bg-space-err bg-red-intense)
+    (bg-space bg-main)
+    (fg-space border)
+    (fringe bg-main)
+    (fg-line-number-active green)
+    (fg-line-number-inactive overlay1)
+    (bg-line-number-active bg-hl-line)
+    (bg-line-number-inactive bg-main)
+    (bg-tab-bar bg-dim)
+    (bg-tab-current bg-main)
+    (bg-tab-other bg-dim)
+    (bg-prominent-err bg-err)
+    (fg-prominent-err err)
+    (fg-paren-match fg-main)
+    (underline-paren-match unspecified)
+    (bg-active-argument bg-active)
+    (fg-active-argument green)
+    (bg-active-value bg-green-subtle)
+    (fg-active-value green)
+    (bg-prose-block-delimiter bg-prose-block)
+    (fg-prose-block-delimiter fg-dim)
+    (bg-prose-block-contents bg-prose-block)
+    (bg-prose-code unspecified)
+    (bg-prose-macro unspecified)
+    (bg-prose-verbatim unspecified)
+    (fg-completion-match-0 green)
+    (fg-completion-match-1 cyan)
+    (fg-completion-match-2 magenta-warmer)
+    (fg-completion-match-3 orange)
+    (bg-completion-match-0 unspecified)
+    (bg-completion-match-1 unspecified)
+    (bg-completion-match-2 unspecified)
+    (bg-completion-match-3 unspecified)
+    (bg-completion bg-dim)
+    (fg-search-current fg-main)
+    (bg-term-black bg-main)
+    (fg-term-black bg-main)
+    (bg-term-black-bright overlay0)
+    (fg-term-black-bright overlay0)
+    (bg-term-red red)
+    (fg-term-red red)
+    (bg-term-red-bright red-warmer)
+    (fg-term-red-bright red-warmer)
+    (bg-term-green green)
+    (fg-term-green green)
+    (bg-term-green-bright green-warmer)
+    (fg-term-green-bright green-warmer)
+    (bg-term-yellow yellow)
+    (fg-term-yellow yellow)
+    (bg-term-yellow-bright yellow-warmer)
+    (fg-term-yellow-bright yellow-warmer)
+    (bg-term-blue blue)
+    (fg-term-blue blue)
+    (bg-term-blue-bright blue-warmer)
+    (fg-term-blue-bright blue-warmer)
+    (bg-term-magenta magenta)
+    (fg-term-magenta magenta)
+    (bg-term-magenta-bright magenta-warmer)
+    (fg-term-magenta-bright magenta-warmer)
+    (bg-term-cyan cyan)
+    (fg-term-cyan cyan)
+    (bg-term-cyan-bright cyan-warmer)
+    (fg-term-cyan-bright cyan-warmer)
+    (bg-term-white fg-dim)
+    (fg-term-white fg-dim)
+    (bg-term-white-bright fg-main)
+    (fg-term-white-bright fg-main)
+    (rainbow-0 green)
+    (rainbow-1 cyan)
+    (rainbow-2 magenta)
+    (rainbow-3 blue)
+    (rainbow-4 orange)
+    (rainbow-5 red)
+    (rainbow-6 yellow)
+    (rainbow-7 fg-alt)
+    (rainbow-8 fg-dim)
+    (fg-heading-0 green)
+    (fg-heading-1 green)
+    (fg-heading-2 cyan)
+    (fg-heading-3 magenta)
+    (fg-heading-4 blue)
+    (fg-heading-5 orange)
+    (fg-heading-6 red)
+    (fg-heading-7 fg-alt)
+    (fg-heading-8 fg-dim)
+    (bg-heading-0 unspecified)
+    (bg-heading-1 bg-green-nuanced)
+    (bg-heading-2 unspecified)
+    (bg-heading-3 bg-magenta-nuanced)
+    (bg-heading-4 bg-blue-nuanced)
+    (bg-heading-5 unspecified)
+    (bg-heading-6 bg-red-nuanced)
+    (bg-heading-7 unspecified)
+    (bg-heading-8 unspecified)
+    (overline-heading-0 green)
+    (overline-heading-1 green)
+    (overline-heading-2 cyan)
+    (overline-heading-3 magenta)
+    (overline-heading-4 blue)
+    (overline-heading-5 orange)
+    (overline-heading-6 red)
+    (overline-heading-7 unspecified)
+    (overline-heading-8 unspecified))
+  "Semantic color mappings for `evergarden'.")
+
+(defcustom evergarden-palette-overrides nil
+  "Overrides for `evergarden-palette'.
+
+Each element should have the form (NAME VALUE), where NAME is a palette
+entry from `evergarden-palette' and VALUE is either another palette symbol
+or a color string."
+  :group 'evergarden-theme
+  :package-version '(evergarden-theme . "0.1.0")
+  :type '(repeat (list symbol (choice symbol string))))
+
+(defconst evergarden-palette
+  (modus-themes-generate-palette
+   evergarden-palette-partial
+   'cool
+   nil
+   (append evergarden-palette-mappings-partial ef-themes-palette-common))
+  "Full palette for `evergarden'.")
+
+(defconst evergarden-custom-faces
+  '(`(corfu-default ((,c :inherit modus-themes-fixed-pitch
+                      :background ,bg-dim
+                      :foreground ,fg-main)))
+    `(corfu-current ((,c :background ,bg-green-intense
+                      :foreground ,fg-main
+                      :extend t
+                      :box (:line-width -1 :color ,green)
+                      :weight semi-bold)))
+    `(corfu-border ((,c :background ,border
+                     :foreground ,border)))
+    `(corfu-bar ((,c :background ,green)))
+    `(corfu-popupinfo ((,c :background ,bg-dim
+                        :foreground ,fg-main))))
+  "Additional face overrides for `evergarden'.
+
+Prefer palette entries and semantic mappings first.
+Use direct face overrides only for targeted package cases where the
+inherited mapping does not provide enough contrast.")
+
+(defun evergarden--ensure-modus-theme-metadata ()
+  "Declare `evergarden' as a Modus-derived theme when reloading in-session.
+
+If an `evergarden' theme object already exists in the session, ensure it
+still has the theme properties that `modus-themes-theme' expects."
+  (unless (plist-get (get evergarden-theme-name 'theme-properties) :modus-core-palette)
+    (modus-themes-declare
+     evergarden-theme-name
+     evergarden-theme-family
+     evergarden-theme-description
+     evergarden-theme-background-mode
+     'evergarden-palette
+     nil
+     'evergarden-palette-overrides)
+    (modus-themes-register evergarden-theme-name)))
+
+(evergarden--ensure-modus-theme-metadata)
+
+(modus-themes-theme
+ evergarden-theme-name
+ evergarden-theme-family
+ evergarden-theme-description
+ evergarden-theme-background-mode
+ 'evergarden-palette
+ nil
+ 'evergarden-palette-overrides
+ 'evergarden-custom-faces)
+
+;;;###autoload
+(when load-file-name
+  (add-to-list 'custom-theme-load-path
+               (file-name-as-directory
+                (file-name-directory load-file-name))))
+
+(provide 'evergarden-theme)
+
+;;; evergarden-theme.el ends here
