@@ -1,6 +1,6 @@
 <h3 align="center">
   <img src="https://codeberg.org/evergarden/.profile/raw/branch/main/assets/logo-circle.png" width="100" alt="Logo"/><br/>
-  Evergarden for <a href="https://codeberg.org/evergarden/template">App</a>
+  Evergarden for <a href="https://codeberg.org/roughlynamed/emacs-evergarden">Emacs</a>
 </h3>
 
 <p align="center">
@@ -38,11 +38,26 @@
   <img src="assets/previews/summer.webp"/>
 </details>
 
+<!-- TODO: get to MELPA soon  -->
 ### Usage
+1. Download the theme file
+2. Add the directory with the theme file to your `custom-theme-load-path` and load the theme
 
-1. Get the link to the raw theme file of your choice.
-2. Open the app and go to `Themes` -> `Import from url`.
-3. Enter the link you copied in the input field.
+``` emacs-lisp
+(package-install 'modus-themes)
+(package-install 'ef-themes)
+
+(add-to-list 'custom-theme-load-path
+             "/path/to/evergarden-theme.el/directory")
+(load-theme 'evergarden t)
+```  
+For package-style loading:  
+
+``` emacs-lisp
+(add-to-list 'load-path "/path/to/evergarden-theme.el/directory")
+(require 'evergarden)
+(load-theme 'evergarden t)
+```
 
 ### Thanks to <3
 

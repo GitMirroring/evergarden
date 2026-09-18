@@ -1,0 +1,1 @@
+/home/sophie/stow/doom/.config/doom/extra-themes/evergarden-theme.el
