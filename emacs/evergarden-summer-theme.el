@@ -6,13 +6,15 @@
 ;; Keywords: faces, theme
 
 ;;; Commentary:
-;; summer evergarden
+;; Summer evergarden
+
 ;;; Code:
+
 (unless (featurep 'evergarden-common)
   (let ((common (locate-file "evergarden-common"
-                             (append (seq-filter #'stringp custom-theme-load-path)
-                                     load-path)
-                             '(".el" ".elc" ""))))
+                              (append (seq-filter #'stringp custom-theme-load-path)
+                                      load-path)
+                              '(".el" ".elc" ""))))
     (if common
         (load common)
       (error "evergarden-common.el not found; add its directory to `custom-theme-load-path'"))))
