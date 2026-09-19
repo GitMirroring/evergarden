@@ -36,16 +36,9 @@
 (package-install 'ef-themes)
 
 (add-to-list 'custom-theme-load-path
-             "/path/to/evergarden-theme.el/directory")
+             "/path/to/evergarden-theme/directory")
 (load-theme 'evergarden t)
 ```  
-For package-style loading:  
-
-``` emacs-lisp
-(add-to-list 'load-path "/path/to/evergarden-theme.el/directory")
-(require 'evergarden)
-(load-theme 'evergarden t)
-```
 
 ### Thanks to <3
 
