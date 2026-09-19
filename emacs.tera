@@ -1,0 +1,323 @@
+---
+whiskers:
+  version: ^2.0.0
+  matrix:
+    - flavor
+  filename: "emacs/evergarden-{{flavor.identifier}}-theme.el"
+---
+{%- set is_dark = flavor.dark | default(value=true) -%}
+{%- set c = flavor.colors -%}
+{#-
+  Derivation formulas below mirror modus-themes' own warmer/cooler/faint/
+  intense/subtle/nuanced conventions (reverse-engineered from fortune-gold-
+  theme.el's actual hue/sat/light values), just expressed as `add`/`sub`/
+  `mod`/`mix` pipelines instead of a Python HSL helper. See evergarden-
+  common.el's commentary for why intense/subtle/nuanced/faint need different
+  targets depending on `is_dark`.
+
+  add(hue=.., saturation=.., lightness=..): ADDS a delta (saturation/
+    lightness deltas must be non-negative -- use `sub` for the other
+    direction, since those two attributes are unsigned).
+  mod(hue=.., saturation=.., lightness=..): SETS an absolute value.
+  mix(color=.., amount=..): linear-interpolates toward `color` by `amount`.
+  All three return a Color; chain `| hex` at the end to get a bare hex
+  string (no leading '#', added manually below to match Lisp string syntax).
+-#}
+
+{#- ============================== Red family ============================== #}
+{%- set red_warmer = c.red | add(hue=0) | sub(hue=9) | add(saturation=2) | sub(lightness=1) -%}
+{%- set red_cooler = c.red | add(hue=14, saturation=2) | sub(lightness=2) -%}
+{%- set red_faint_s = (c.red.hsl.s * 0.6 * 100) | round | int -%}
+{%- if is_dark -%}
+  {%- set red_faint = c.red | mod(saturation=red_faint_s) | sub(lightness=10) -%}
+{%- else -%}
+  {%- set red_faint = c.red | mod(saturation=red_faint_s) | add(lightness=10) -%}
+{%- endif -%}
+
+{#- ============================= Green family ============================= #}
+{%- set green_warmer = c.lime -%}
+{%- set green_cooler_pre = c.green | add(hue=16) -%}
+{%- set green_cooler = if(cond=is_dark, t=green_cooler_pre | sub(lightness=1), f=green_cooler_pre | add(lightness=1)) -%}
+{%- set green_faint_s = (c.green.hsl.s * 0.65 * 100) | round | int -%}
+{%- if is_dark -%}
+  {%- set green_faint = c.green | mod(saturation=green_faint_s) | sub(lightness=10) -%}
+{%- else -%}
+  {%- set green_faint = c.green | mod(saturation=green_faint_s) | add(lightness=10) -%}
+{%- endif -%}
+
+{#- ============================ Yellow family =============================#}
+{%- set yellow_warmer = c.yellow | sub(hue=8) | add(saturation=2) -%}
+{%- set yellow_cooler_pre = c.yellow | add(hue=10) -%}
+{%- set yellow_cooler_s = (c.yellow.hsl.s * 100 - 5) | round | int -%}
+{%- set yellow_cooler_pre2 = c.yellow | add(hue=10) | mod(saturation=yellow_cooler_s) -%}
+{%- set yellow_cooler = if(cond=is_dark, t=yellow_cooler_pre2 | sub(lightness=1), f=yellow_cooler_pre2 | add(lightness=1)) -%}
+{%- set yellow_faint_s = (c.yellow.hsl.s * 0.6 * 100) | round | int -%}
+{%- if is_dark -%}
+  {%- set yellow_faint = c.yellow | mod(saturation=yellow_faint_s) | sub(lightness=10) -%}
+{%- else -%}
+  {%- set yellow_faint = c.yellow | mod(saturation=yellow_faint_s) | add(lightness=10) -%}
+{%- endif -%}
+
+{#- ============================== Blue family ==============================#}
+{%- set blue_warmer = c.snow -%}
+{%- set blue_cooler_pre = c.blue | add(hue=14) -%}
+{%- set blue_cooler = if(cond=is_dark, t=blue_cooler_pre | sub(lightness=1), f=blue_cooler_pre | add(lightness=1)) -%}
+{%- set blue_faint_s = (c.blue.hsl.s * 0.6 * 100) | round | int -%}
+{%- if is_dark -%}
+  {%- set blue_faint = c.blue | mod(saturation=blue_faint_s) | sub(lightness=11) -%}
+{%- else -%}
+  {%- set blue_faint = c.blue | mod(saturation=blue_faint_s) | add(lightness=11) -%}
+{%- endif -%}
+
+{#- ============================ Magenta family =============================#}
+{%- set magenta = c.purple -%}
+{%- set magenta_warmer = c.pink -%}
+{%- set magenta_cooler_pre = c.purple | add(hue=14) -%}
+{%- set magenta_cooler = if(cond=is_dark, t=magenta_cooler_pre | sub(lightness=1), f=magenta_cooler_pre | add(lightness=1)) -%}
+{%- set magenta_faint_s = (c.purple.hsl.s * 0.6 * 100) | round | int -%}
+{%- if is_dark -%}
+  {%- set magenta_faint = c.purple | mod(saturation=magenta_faint_s) | sub(lightness=11) -%}
+{%- else -%}
+  {%- set magenta_faint = c.purple | mod(saturation=magenta_faint_s) | add(lightness=11) -%}
+{%- endif -%}
+
+{#- ============================== Cyan family ===============================#}
+{%- set cyan = c.aqua -%}
+{%- set cyan_warmer = c.aqua | sub(hue=14) -%}
+{%- set cyan_cooler = c.skye -%}
+{%- set cyan_faint_s = (c.aqua.hsl.s * 0.65 * 100) | round | int -%}
+{%- if is_dark -%}
+  {%- set cyan_faint = c.aqua | mod(saturation=cyan_faint_s) | sub(lightness=11) -%}
+{%- else -%}
+  {%- set cyan_faint = c.aqua | mod(saturation=cyan_faint_s) | add(lightness=11) -%}
+{%- endif -%}
+
+{#- ==================== Intense / Subtle / Nuanced backgrounds ==============
+    Targets differ for dark vs. light flavors -- a dark theme's "intense" bg
+    needs to stay dark-ish (low lightness) to read as a background at all,
+    while a light theme's needs to stay pale. Values are the ones reverse-
+    engineered from fortune-gold-theme.el (light) and the original hand-built
+    evergarden-fall (dark). -#}
+{%- if is_dark -%}
+  {%- set int_s = 42 %}{% set int_l = 30 -%}
+  {%- set sub_s = 26 %}{% set sub_l = 23 -%}
+  {%- set nua_s = 16 %}{% set nua_l = 19 -%}
+  {%- set g0_s = 55 %}{% set g0_l = 42 -%}
+  {%- set g1_s = 40 %}{% set g1_l = 30 -%}
+{%- else -%}
+  {%- set int_s = 50 %}{% set int_l = 84 -%}
+  {%- set sub_s = 40 %}{% set sub_l = 90 -%}
+  {%- set nua_s = 35 %}{% set nua_l = 92 -%}
+  {%- set g0_s = 35 %}{% set g0_l = 60 -%}
+  {%- set g1_s = 35 %}{% set g1_l = 75 -%}
+{%- endif -%}
+
+{%- set bg_red_intense = c.red | mod(saturation=int_s, lightness=int_l) -%}
+{%- set bg_red_subtle = c.red | mod(saturation=sub_s, lightness=sub_l) -%}
+{%- set bg_red_nuanced = c.red | mod(saturation=nua_s, lightness=nua_l) -%}
+{%- set bg_graph_red_0 = c.red | mod(saturation=g0_s, lightness=g0_l) -%}
+{%- set bg_graph_red_1 = c.red | mod(saturation=g1_s, lightness=g1_l) -%}
+
+{%- set bg_green_intense = c.green | mod(saturation=int_s, lightness=int_l) -%}
+{%- set bg_green_subtle = c.green | mod(saturation=sub_s, lightness=sub_l) -%}
+{%- set bg_green_nuanced = c.green | mod(saturation=nua_s, lightness=nua_l) -%}
+{%- set bg_graph_green_0 = c.green | mod(saturation=g0_s, lightness=g0_l) -%}
+{%- set bg_graph_green_1 = c.green | mod(saturation=g1_s, lightness=g1_l) -%}
+
+{%- set bg_yellow_intense = c.yellow | mod(saturation=int_s, lightness=int_l) -%}
+{%- set bg_yellow_subtle = c.yellow | mod(saturation=sub_s, lightness=sub_l) -%}
+{%- set bg_yellow_nuanced = c.yellow | mod(saturation=nua_s, lightness=nua_l) -%}
+{%- set bg_graph_yellow_0 = c.yellow | mod(saturation=g0_s, lightness=g0_l) -%}
+{%- set bg_graph_yellow_1 = c.yellow | mod(saturation=g1_s, lightness=g1_l) -%}
+
+{%- set bg_blue_intense = c.blue | mod(saturation=int_s, lightness=int_l) -%}
+{%- set bg_blue_subtle = c.blue | mod(saturation=sub_s, lightness=sub_l) -%}
+{%- set bg_blue_nuanced = c.blue | mod(saturation=nua_s, lightness=nua_l) -%}
+{%- set bg_graph_blue_0 = c.blue | mod(saturation=g0_s, lightness=g0_l) -%}
+{%- set bg_graph_blue_1 = c.blue | mod(saturation=g1_s, lightness=g1_l) -%}
+
+{%- set bg_magenta_intense = c.purple | mod(saturation=int_s, lightness=int_l) -%}
+{%- set bg_magenta_subtle = c.purple | mod(saturation=sub_s, lightness=sub_l) -%}
+{%- set bg_magenta_nuanced = c.purple | mod(saturation=nua_s, lightness=nua_l) -%}
+{%- set bg_graph_magenta_0 = c.purple | mod(saturation=g0_s, lightness=g0_l) -%}
+{%- set bg_graph_magenta_1 = c.purple | mod(saturation=g1_s, lightness=g1_l) -%}
+
+{%- set bg_cyan_intense = c.aqua | mod(saturation=int_s, lightness=int_l) -%}
+{%- set bg_cyan_subtle = c.aqua | mod(saturation=sub_s, lightness=sub_l) -%}
+{%- set bg_cyan_nuanced = c.aqua | mod(saturation=nua_s, lightness=nua_l) -%}
+{%- set bg_graph_cyan_0 = c.aqua | mod(saturation=g0_s, lightness=g0_l) -%}
+{%- set bg_graph_cyan_1 = c.aqua | mod(saturation=g1_s, lightness=g1_l) -%}
+
+{#- ================================== Diff ==================================#}
+{%- set intense_txt_s = if(cond=is_dark, t=10, f=8) -%}
+{%- set intense_txt_l = if(cond=is_dark, t=25, f=15) -%}
+{%- set fg_added_intense = c.green | add(saturation=intense_txt_s) | sub(lightness=intense_txt_l) -%}
+{%- set fg_changed_intense = yellow_cooler | add(saturation=intense_txt_s) | sub(lightness=intense_txt_l) -%}
+{%- set fg_removed_intense = c.red | add(saturation=intense_txt_s) | sub(lightness=intense_txt_l) -%}
+
+;;; evergarden-{{flavor.identifier}}-theme.el --- Evergarden, {{flavor.name}} flavor -*- lexical-binding: t; -*-
+
+;; Author: expansion of the original evergarden theme by @koi.rip
+;; Version: 0.2.0
+;; Package-Requires: ((emacs "28.1") (modus-themes "5.0.0") (ef-themes "2.0.0"))
+;; Keywords: faces, theme
+
+;;; Commentary:
+;;
+;; The {{flavor.name}} flavor of evergarden -- generated by whiskers from
+;; the shared color table, same as lua/evergarden/palettes/{{flavor.identifier}}.lua.
+;; All the actual face wiring lives in evergarden-common.el; this file only
+;; supplies {{flavor.name}}'s own colors. DO NOT EDIT BY HAND -- edit the
+;; .tera template and re-run whiskers instead.
+
+;;; Code:
+
+;; Not `(file-name-directory (or load-file-name buffer-file-name))' --
+;; both can be nil depending on how the loader gets here (byte-compile
+;; caches, `eval-buffer', some straight.el paths), which signals
+;; `(wrong-type-argument stringp nil)'. `custom-theme-load-path' is
+;; reliably populated by the time any theme file loads (it's how this
+;; file was found in the first place), so search that instead.
+(unless (featurep 'evergarden-common)
+  (let ((common (locate-file "evergarden-common"
+                              (append (seq-filter #'stringp custom-theme-load-path)
+                                      load-path)
+                              '(".el" ".elc" ""))))
+    (if common
+        (load common)
+      (error "evergarden-common.el not found; add its directory to `custom-theme-load-path'"))))
+
+(defconst evergarden-{{flavor.identifier}}-palette-partial
+  '(
+    ;; Core backgrounds / foregrounds
+    (cursor "#{{c.cherry | hex}}")
+    (bg-main "#{{c.base | hex}}")
+    (bg-dim "#{{c.surface0 | hex}}")
+    (bg-alt "#{{c.surface1 | hex}}")
+    (fg-main "#{{c.text | hex}}")
+    (fg-dim "#{{c.subtext1 | hex}}")
+    (fg-alt "#{{c.subtext0 | hex}}")
+    (bg-active "#{{c.surface2 | hex}}")
+    (bg-inactive "#{{c.surface0 | hex}}")
+    (border "#{{c.overlay0 | hex}}")
+
+    ;; {{flavor.name}}'s own named palette (from the whiskers color table)
+    (bg-hl "#{{c.surface2 | hex}}")
+    (bg-prose-block "#{{ if(cond=is_dark, t=c.base | add(lightness=3) | hex, f=c.base | sub(lightness=2) | hex) }}")
+{%- for id, color in c %}
+    ({{id}} "#{{color.hex}}")
+{%- endfor %}
+
+    ;; Red family
+    (red-warmer "#{{red_warmer | hex}}")
+    (red-cooler "#{{red_cooler | hex}}")
+    (red-faint "#{{red_faint | hex}}")
+
+    ;; Green family
+    (green-warmer "#{{green_warmer | hex}}")
+    (green-cooler "#{{green_cooler | hex}}")
+    (green-faint "#{{green_faint | hex}}")
+
+    ;; Yellow family
+    (yellow-warmer "#{{yellow_warmer | hex}}")
+    (yellow-cooler "#{{yellow_cooler | hex}}")
+    (yellow-faint "#{{yellow_faint | hex}}")
+
+    ;; Blue family
+    (blue-warmer "#{{blue_warmer | hex}}")
+    (blue-cooler "#{{blue_cooler | hex}}")
+    (blue-faint "#{{blue_faint | hex}}")
+
+    ;; Magenta/purple family
+    (magenta "#{{magenta | hex}}")
+    (magenta-warmer "#{{magenta_warmer | hex}}")
+    (magenta-cooler "#{{magenta_cooler | hex}}")
+    (magenta-faint "#{{magenta_faint | hex}}")
+
+    ;; Cyan family
+    (cyan "#{{cyan | hex}}")
+    (cyan-warmer "#{{cyan_warmer | hex}}")
+    (cyan-cooler "#{{cyan_cooler | hex}}")
+    (cyan-faint "#{{cyan_faint | hex}}")
+
+    ;; Intense/Subtle/Nuanced backgrounds
+    (bg-red-intense "#{{bg_red_intense | hex}}")
+    (bg-red-subtle "#{{bg_red_subtle | hex}}")
+    (bg-red-nuanced "#{{bg_red_nuanced | hex}}")
+    (bg-green-intense "#{{bg_green_intense | hex}}")
+    (bg-green-subtle "#{{bg_green_subtle | hex}}")
+    (bg-green-nuanced "#{{bg_green_nuanced | hex}}")
+    (bg-yellow-intense "#{{bg_yellow_intense | hex}}")
+    (bg-yellow-subtle "#{{bg_yellow_subtle | hex}}")
+    (bg-yellow-nuanced "#{{bg_yellow_nuanced | hex}}")
+    (bg-blue-intense "#{{bg_blue_intense | hex}}")
+    (bg-blue-subtle "#{{bg_blue_subtle | hex}}")
+    (bg-blue-nuanced "#{{bg_blue_nuanced | hex}}")
+    (bg-magenta-intense "#{{bg_magenta_intense | hex}}")
+    (bg-magenta-subtle "#{{bg_magenta_subtle | hex}}")
+    (bg-magenta-nuanced "#{{bg_magenta_nuanced | hex}}")
+    (bg-cyan-intense "#{{bg_cyan_intense | hex}}")
+    (bg-cyan-subtle "#{{bg_cyan_subtle | hex}}")
+    (bg-cyan-nuanced "#{{bg_cyan_nuanced | hex}}")
+
+    ;; Graph colors
+    (bg-graph-red-0 "#{{bg_graph_red_0 | hex}}")
+    (bg-graph-red-1 "#{{bg_graph_red_1 | hex}}")
+    (bg-graph-green-0 "#{{bg_graph_green_0 | hex}}")
+    (bg-graph-green-1 "#{{bg_graph_green_1 | hex}}")
+    (bg-graph-yellow-0 "#{{bg_graph_yellow_0 | hex}}")
+    (bg-graph-yellow-1 "#{{bg_graph_yellow_1 | hex}}")
+    (bg-graph-blue-0 "#{{bg_graph_blue_0 | hex}}")
+    (bg-graph-blue-1 "#{{bg_graph_blue_1 | hex}}")
+    (bg-graph-magenta-0 "#{{bg_graph_magenta_0 | hex}}")
+    (bg-graph-magenta-1 "#{{bg_graph_magenta_1 | hex}}")
+    (bg-graph-cyan-0 "#{{bg_graph_cyan_0 | hex}}")
+    (bg-graph-cyan-1 "#{{bg_graph_cyan_1 | hex}}")
+
+    ;; Diff
+    (bg-added "#{{bg_green_intense | hex}}")
+    (bg-added-faint "#{{bg_green_subtle | hex}}")
+    (bg-added-refine "#{{bg_green_intense | mix(color=bg_green_subtle, amount=0.4) | hex}}")
+    (bg-added-fringe "#{{bg_graph_green_0 | hex}}")
+    (fg-added "#{{c.green | hex}}")
+    (fg-added-intense "#{{fg_added_intense | hex}}")
+
+    (bg-changed "#{{bg_yellow_intense | hex}}")
+    (bg-changed-faint "#{{bg_yellow_subtle | hex}}")
+    (bg-changed-refine "#{{bg_yellow_intense | mix(color=bg_yellow_subtle, amount=0.4) | hex}}")
+    (bg-changed-fringe "#{{bg_graph_yellow_0 | hex}}")
+    (fg-changed "#{{yellow_cooler | hex}}")
+    (fg-changed-intense "#{{fg_changed_intense | hex}}")
+
+    (bg-removed "#{{bg_red_intense | hex}}")
+    (bg-removed-faint "#{{bg_red_subtle | hex}}")
+    (bg-removed-refine "#{{bg_red_intense | mix(color=bg_red_subtle, amount=0.4) | hex}}")
+    (bg-removed-fringe "#{{bg_graph_red_0 | hex}}")
+    (fg-removed "#{{c.red | hex}}")
+    (fg-removed-intense "#{{fg_removed_intense | hex}}")
+
+    (bg-diff-context "#{{c.surface2 | hex}}")
+
+    ;; UI chrome
+    (bg-mode-line-active "#{{c.surface2 | sub(lightness=3) | hex}}")
+    (fg-mode-line-active "#{{c.text | hex}}")
+    (bg-mode-line-inactive "#{{c.surface0 | hex}}")
+    (fg-mode-line-inactive "#{{c.subtext1 | hex}}")
+    (border-mode-line-active "#{{c.green | hex}}")
+    (border-mode-line-inactive "#{{c.overlay0 | hex}}")
+    (bg-completion "#{{c.surface0 | hex}}")
+    (bg-hover "#{{c.surface2 | hex}}")
+    (bg-hover-secondary "#{{bg_blue_subtle | hex}}")
+    (bg-hl-line "#{{c.surface2 | hex}}")
+    (bg-paren-match "#{{bg_yellow_intense | hex}}")
+    (bg-err "#{{bg_red_intense | hex}}")
+    (bg-warning "#{{bg_yellow_intense | hex}}")
+    (bg-info "#{{bg_cyan_intense | hex}}")
+    (bg-region "#{{bg_green_intense | hex}}"))
+  "Base palette entries for `evergarden-{{flavor.identifier}}', generated by whiskers.")
+
+(evergarden-build-theme 'evergarden-{{flavor.identifier}} evergarden-{{flavor.identifier}}-palette-partial '{{ if(cond=is_dark, t="dark", f="light") }})
+
+(provide 'evergarden-{{flavor.identifier}}-theme)
+
+;;; evergarden-{{flavor.identifier}}-theme.el ends here

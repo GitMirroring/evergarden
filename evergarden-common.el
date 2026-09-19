@@ -256,7 +256,6 @@ stay red, ANSI blue should stay blue, etc., regardless of flavor.")
   "Semantic color mappings shared by every evergarden flavor.
 Only references palette symbol names, never literal hex, so the exact same
 list works whether the active flavor's palette is dark or light.")
-
 (defconst evergarden-custom-faces
   '(`(corfu-default ((,c :inherit modus-themes-fixed-pitch
                       :background ,bg-dim
@@ -270,9 +269,7 @@ list works whether the active flavor's palette is dark or light.")
                      :foreground ,border)))
     `(corfu-bar ((,c :background ,green)))
     `(corfu-popupinfo ((,c :background ,bg-dim
-                        :foreground ,fg-main))))
-  "Additional face overrides shared by every evergarden flavor.")
-
+                        :foreground ,fg-main)))))
 (defun evergarden--ensure-modus-theme-metadata (name family description mode palette-sym overrides-sym)
   "Declare NAME as a Modus-derived theme when reloading in-session.
 
