@@ -8,7 +8,6 @@ whiskers:
 {%- set is_dark = flavor.dark | default(value=true) -%}
 {%- set c = flavor.colors -%}
 
-{#- ============================== Red family ============================== #}
 {%- set red_warmer = c.red | add(hue=0) | sub(hue=9) | add(saturation=2) | sub(lightness=1) -%}
 {%- set red_cooler = c.red | add(hue=14, saturation=2) | sub(lightness=2) -%}
 {%- set red_faint_s = (c.red.hsl.s * 0.6 * 100) | round | int -%}
@@ -18,7 +17,6 @@ whiskers:
   {%- set red_faint = c.red | mod(saturation=red_faint_s) | add(lightness=10) -%}
 {%- endif -%}
 
-{#- ============================= Green family ============================= #}
 {%- set green_warmer = c.lime -%}
 {%- set green_cooler_pre = c.green | add(hue=16) -%}
 {%- set green_cooler = if(cond=is_dark, t=green_cooler_pre | sub(lightness=1), f=green_cooler_pre | add(lightness=1)) -%}
@@ -29,7 +27,6 @@ whiskers:
   {%- set green_faint = c.green | mod(saturation=green_faint_s) | add(lightness=10) -%}
 {%- endif -%}
 
-{#- ============================ Yellow family =============================#}
 {%- set yellow_warmer = c.yellow | sub(hue=8) | add(saturation=2) -%}
 {%- set yellow_cooler_pre = c.yellow | add(hue=10) -%}
 {%- set yellow_cooler_s = (c.yellow.hsl.s * 100 - 5) | round | int -%}
@@ -42,7 +39,6 @@ whiskers:
   {%- set yellow_faint = c.yellow | mod(saturation=yellow_faint_s) | add(lightness=10) -%}
 {%- endif -%}
 
-{#- ============================== Blue family ==============================#}
 {%- set blue_warmer = c.snow -%}
 {%- set blue_cooler_pre = c.blue | add(hue=14) -%}
 {%- set blue_cooler = if(cond=is_dark, t=blue_cooler_pre | sub(lightness=1), f=blue_cooler_pre | add(lightness=1)) -%}
@@ -53,7 +49,6 @@ whiskers:
   {%- set blue_faint = c.blue | mod(saturation=blue_faint_s) | add(lightness=11) -%}
 {%- endif -%}
 
-{#- ============================ Magenta family =============================#}
 {%- set magenta = c.purple -%}
 {%- set magenta_warmer = c.pink -%}
 {%- set magenta_cooler_pre = c.purple | add(hue=14) -%}
@@ -65,7 +60,6 @@ whiskers:
   {%- set magenta_faint = c.purple | mod(saturation=magenta_faint_s) | add(lightness=11) -%}
 {%- endif -%}
 
-{#- ============================== Cyan family ===============================#}
 {%- set cyan = c.aqua -%}
 {%- set cyan_warmer = c.aqua | sub(hue=14) -%}
 {%- set cyan_cooler = c.skye -%}
@@ -76,12 +70,6 @@ whiskers:
   {%- set cyan_faint = c.aqua | mod(saturation=cyan_faint_s) | add(lightness=11) -%}
 {%- endif -%}
 
-{#- ==================== Intense / Subtle / Nuanced backgrounds ==============
-    Targets differ for dark vs. light flavors -- a dark theme's "intense" bg
-    needs to stay dark-ish (low lightness) to read as a background at all,
-    while a light theme's needs to stay pale. Values are the ones reverse-
-    engineered from fortune-gold-theme.el (light) and the original hand-built
-    evergarden-fall (dark). -#}
 {%- if is_dark -%}
   {%- set int_s = 42 %}{% set int_l = 30 -%}
   {%- set sub_s = 26 %}{% set sub_l = 23 -%}
