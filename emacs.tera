@@ -5,6 +5,7 @@ whiskers:
     - flavor
   filename: "emacs/evergarden-{{flavor.identifier}}-theme.el"
 ---
+{# Copyright (C) 2026 Magdalena Szweda #}
 {#
  SPDX-License-Identifier: Apache-2.0
 

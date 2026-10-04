@@ -1,3 +1,19 @@
+<!-- Copyright (C) 2026 Magdalena Szweda -->
+<!--
+ SPDX-License-Identifier: Apache-2.0
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
 <h3 align="center">
   <img src="https://codeberg.org/evergarden/.profile/raw/branch/main/assets/logo-circle.png" width="100" alt="Logo"/><br/>
   Evergarden for <a href="https://www.gnu.org/software/emacs/emacs.html">Emacs</a>
@@ -26,7 +42,7 @@
   <img src="assets/previews/summer.webp"/>
 </details>
 
-<!-- TODO: get to MELPA soon  -->
+<!-- TODO: get to MELPA / (Non)GNU ELPA soon  -->
 ### Usage
 1. Download the theme files
 2. Add the directory with the theme file to your `custom-theme-load-path` and load the theme
