@@ -43,18 +43,20 @@
 </details>
 
 <!-- TODO: get to MELPA / (Non)GNU ELPA soon  -->
+
 ### Usage
+
 1. Download the theme files
 2. Add the directory with the theme file to your `custom-theme-load-path` and load the theme
 
-``` emacs-lisp
+```emacs-lisp
 (package-install 'modus-themes)
 (package-install 'ef-themes)
 
 (add-to-list 'custom-theme-load-path
              "/path/to/evergarden-theme/directory")
 (load-theme 'evergarden t)
-```  
+```
 
 ### Thanks to <3
 

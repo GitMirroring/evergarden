@@ -16,6 +16,7 @@
 -->
 
 # Evergarden theme screenshots
+
 All images & screenshots of the emacs-evergarden theme are licensed under the Apache 2.0 License.
 
 <details>
