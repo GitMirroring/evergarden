@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2026 Magdalena Szweda
 
-;; Author: expansion of the original evergarden theme by @koi.rip
+;; Author: Magdalena Szweda <hi@roughlynamed.net>
 ;; Version: 0.2.0
 ;; Package-Requires: ((emacs "28.1") (modus-themes "5.0.0") (ef-themes "2.0.0"))
 ;; Keywords: faces, theme
