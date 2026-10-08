@@ -17,28 +17,42 @@
 
 # Evergarden theme screenshots
 
-All images & screenshots of the emacs-evergarden theme are licensed under the Apache 2.0 License.
+### preview.webp
 
-<details>
- <summary>winter.webp</summary>
- <img src="winter.webp"/>
- Licensed under Apache 2.0
-</details>
+<img src="preview.webp"/>
 
-<details>
- <summary>fall.webp</summary>
- <img src="fall.webp"/>
- Licensed under Apache 2.0
-</details>
+Copyright (C) 2026 Magdalena Szweda  
+Licensed under the Apache License, Version 2.0.
+Full text: see the LICENSE file at the top of this distribution.
 
-<details>
- <summary>spring.webp</summary>
- <img src="spring.webp"/>
- Licensed under Apache 2.0
-</details>
+### winter.webp
 
-<details>
- <summary>summer.webp</summary>
- <img src="summer.webp"/>
- Licensed under Apache 2.0
-</details>
+<img src="winter.webp"/>
+
+Copyright (C) 2026 Magdalena Szweda  
+Licensed under the Apache License, Version 2.0.
+Full text: see the LICENSE file at the top of this distribution.
+
+### fall.webp
+
+<img src="fall.webp"/>
+
+Copyright (C) 2026 Magdalena Szweda  
+Licensed under the Apache License, Version 2.0.
+Full text: see the LICENSE file at the top of this distribution.
+
+### spring.webp
+
+<img src="spring.webp"/>
+
+Copyright (C) 2026 Magdalena Szweda  
+Licensed under the Apache License, Version 2.0.
+Full text: see the LICENSE file at the top of this distribution.
+
+### summer.webp
+
+<img src="summer.webp"/>
+
+Copyright (C) 2026 Magdalena Szweda  
+Licensed under the Apache License, Version 2.0.
+Full text: see the LICENSE file at the top of this distribution.
