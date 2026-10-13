@@ -17,46 +17,25 @@ The following files are covered by this notice: `preview.webp`, `winter.webp`, `
     See the License for the specific language governing permissions and
     limitations under the License.
 
-
 ### preview.webp
 
 <img src="preview.webp"/>
-
-Copyright (C) 2026 Magdalena Szweda  
-Licensed under the Apache License, Version 2.0.
-Full text: see the LICENSE file at the top of this distribution.
 
 ### winter.webp
 
 <img src="winter.webp"/>
 
-Copyright (C) 2026 Magdalena Szweda  
-Licensed under the Apache License, Version 2.0.
-Full text: see the LICENSE file at the top of this distribution.
-
 ### fall.webp
 
 <img src="fall.webp"/>
-
-Copyright (C) 2026 Magdalena Szweda  
-Licensed under the Apache License, Version 2.0.
-Full text: see the LICENSE file at the top of this distribution.
 
 ### spring.webp
 
 <img src="spring.webp"/>
 
-Copyright (C) 2026 Magdalena Szweda  
-Licensed under the Apache License, Version 2.0.
-Full text: see the LICENSE file at the top of this distribution.
-
 ### summer.webp
 
 <img src="summer.webp"/>
-
-Copyright (C) 2026 Magdalena Szweda  
-Licensed under the Apache License, Version 2.0.
-Full text: see the LICENSE file at the top of this distribution.
 
 ## License of this README
 
