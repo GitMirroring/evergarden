@@ -47,8 +47,9 @@
 - [evergarden](https://codeberg.org/evergarden)
 
 ### Mirrors
-This repository can also be found in:
+This repository can be found on:
 
+- [Codeberg](https://codeberg.org/roughlynamed/emacs-evergarden)
 - [Cgit](https://git.roughlynamed.net/evergarden.git)
 - [NonGNU Savannah](https://savannah.nongnu.org/projects/evergarden)
 
