@@ -46,6 +46,12 @@
 
 - [evergarden](https://codeberg.org/evergarden)
 
+### Mirrors
+This repository can also be found in:
+
+- [Cgit](https://git.roughlynamed.net/evergarden.git)
+- [NonGNU Savannah](https://savannah.nongnu.org/projects/evergarden)
+
 ### License
 
     Copyright (C) 2026 Magdalena Szweda
