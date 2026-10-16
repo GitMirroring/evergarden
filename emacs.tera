@@ -145,8 +145,8 @@ whiskers:
 ;;; evergarden-{{flavor.identifier}}-theme.el --- Evergarden, {{flavor.name}} flavor -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2026 Magdalena Szweda
-
-;; Author: expansion of the original evergarden theme by @koi.rip
+;; Color palette Copyright (C) <me@koi.rip, https://robinwobin.dev>
+;; Author: Magdalena Szweda <hi@roughlynamed.net>
 ;; Version: 0.2.0
 ;; Package-Requires: ((emacs "28.1") (modus-themes "5.0.0") (ef-themes "2.0.0"))
 ;; Keywords: faces, theme
@@ -166,7 +166,9 @@ whiskers:
 ;; limitations under the License.
 
 ;;; Commentary:
-;; {{flavor.name}} evergarden
+;; {{flavor.name}} flavor of Evergarden fer Emacs, based on the
+;; Evergarden theme by June <me@koi.rip> & Robin <https://robinwobin.dev> (https://codeberg.org/evergarden)
+
 
 ;;; Code:
 
