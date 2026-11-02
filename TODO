@@ -1,2 +1,5 @@
+Copyright (C) 2026 Magdalena Szweda
+
 TODO(vc) Add a v0.2.0 tag and push to all remotes
 TODO(jj) Make 1 origin remote with multiple push url's instead of 3 different remotes  
+TODO(theme) Add support for Org mode, headers currently don't look well  
