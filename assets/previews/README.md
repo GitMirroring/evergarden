@@ -1,4 +1,3 @@
-
 # Evergarden theme screenshots
 
 The following files are covered by this notice: `preview.webp`, `winter.webp`, `fall.webp`, `spring.webp`, `summer.webp`.
